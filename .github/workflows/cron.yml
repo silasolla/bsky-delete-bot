@@ -1,0 +1,22 @@
+name: 削除スクリプトの定期実行
+on:
+  schedule:
+    - cron: "0 */2 * * *"  # 2時間ごとに実行
+jobs:
+  delete-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+      - name: Pythonのセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: ライブラリのインストール
+        run: pip install requests
+      - name: スクリプトの実行
+        env:
+          BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
+          BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+          LIFE_TIME: ${{ vars.LIFE_TIME }}
+        run: python delete_bsky_posts.py
