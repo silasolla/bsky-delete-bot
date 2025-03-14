@@ -10,7 +10,7 @@ BSKY_PASSWORD = os.getenv("BSKY_PASSWORD")
 BASE_URL = "https://bsky.social/xrpc"
 
 # 投稿削除の対象となる時間 (sec)
-LIFE_TIME = os.getenv("LIFE_TIME", 10800)
+LIFE_TIME = int(os.getenv("LIFE_TIME") or 10800)
 
 def login():
     """Bluesky にログインしてセッション情報を取得"""
